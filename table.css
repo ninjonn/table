@@ -1,0 +1,24 @@
+table,tr,td{
+    border-style: solid;
+    border-color: aquamarine;
+    border-width: 1px;
+    border-collapse: collapse;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+table tr:first-child{
+    background-color: blanchedalmond;
+    font-weight: bolder;
+}
+
+table tr:not(:first-child):nth-child(2n){
+    background-color: chartreuse;
+}
+
+table tr:not(:first-child):nth-child(2n+1){
+    background-color:cornflowerblue;
+}
+
+table tr:not(:first-child):hover{
+    background-color: rgb(43, 40, 212);
+}
