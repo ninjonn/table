@@ -1,4 +1,4 @@
-table,tr,td{
+table,tr,td,th{
     border-style: solid;
     border-color: aquamarine;
     border-width: 1px;
@@ -6,19 +6,19 @@ table,tr,td{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
 }
-table tr:first-child{
+table thead tr{
     background-color: blanchedalmond;
     font-weight: bolder;
 }
 
-table tr:not(:first-child):nth-child(2n){
+tbody tr:nth-child(2n){
     background-color: chartreuse;
 }
 
-table tr:not(:first-child):nth-child(2n+1){
+tbody tr:nth-child(2n+1){
     background-color:cornflowerblue;
 }
 
-table tr:not(:first-child):hover{
+tbody tr:hover{
     background-color: rgb(43, 40, 212);
 }
