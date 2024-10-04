@@ -55,6 +55,15 @@ for(const person of array){
     
     tablebody.appendChild(tr)
     
+    tr.addEventListener('click',function(e){
+        console.log('click')
+        
+
+        const ez = tablebody.querySelector('.selected')
+        if(ez!=undefined){
+            ez.classList.remove('selected')
+        }e.currentTarget.classList.add('selected')
+    })
 
     if(person.firstname2===undefined){
         firstname.colSpan = 2
@@ -65,4 +74,7 @@ for(const person of array){
         tr.appendChild(firstname2)
 
     }
+
+    
 }
+
