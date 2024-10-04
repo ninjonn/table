@@ -93,6 +93,7 @@ for(const person of array){
 
     }
 
+
     const married = document.createElement('td')
     tablebody.appendChild(tr)
     tr.appendChild(married)
@@ -112,3 +113,18 @@ for(const person of array){
     
 }
 
+const form = document.getElementById('form')
+form.addEventListener('submit',function(e){
+    e.preventDefault()
+    const lastname = document.getElementById("lastname") 
+    const firstname = document.getElementById("firstname") 
+    const firstname2 = document.getElementById("firstname2") 
+    const married = document.getElementById("married") 
+    const pet = document.getElementById("pet") 
+        
+    const lastnamevalue = lastname.value
+    const firstnamevalue = firstname.value
+    const firstname2value = firstname2.value
+    const marriedvalue = married.checked
+    const petvalue = pet.value
+})
