@@ -1,22 +1,30 @@
-const array = [
+let array = [
     {
         firstname1: 'Géza',
         firstname2: 'Ferenc',
-        lastname: 'Kocsis'
+        lastname: 'Kocsis',
+        married: true,
+        pet: 'kutya'
     },
     {
         firstname1: 'Mária',
         firstname2: 'Júlia',
-        lastname: 'Horváth'
+        lastname: 'Horváth',
+        married: false,
+        pet: 'macska'
     },
     {
         firstname1: 'Ferenc',
-        lastname: 'Balogh'
+        lastname: 'Balogh',
+        married: false,
+        pet: 'teknős'
     },
     {
         firstname1: 'Gábor',
         firstname2: 'Attila',
-        lastname: 'Horváth'
+        lastname: 'Horváth',
+        married: true,
+        pet: 'macska'
     },
 ]
 
@@ -35,9 +43,18 @@ tableheadrow.appendChild(th)
 const th2 = document.createElement('th')
 tableheadrow.appendChild(th2)
 
+const th3 = document.createElement('th')
+tableheadrow.appendChild(th3)
+
+const th4 = document.createElement('th')
+tableheadrow.appendChild(th4)
+
+
 th.innerHTML="Veznev"
 th2.innerHTML="Kernev"
 th2.colSpan = 2
+th3.innerHTML="Házas-e"
+th4.innerHTML="Háziállat"
 
 const tablebody = document.createElement('tbody')
 table.appendChild(tablebody)
@@ -62,7 +79,8 @@ for(const person of array){
         const ez = tablebody.querySelector('.selected')
         if(ez!=undefined){
             ez.classList.remove('selected')
-        }e.currentTarget.classList.add('selected')
+        }
+        e.currentTarget.classList.add('selected')
     })
 
     if(person.firstname2===undefined){
@@ -75,6 +93,22 @@ for(const person of array){
 
     }
 
+    const married = document.createElement('td')
+    tablebody.appendChild(tr)
+    tr.appendChild(married)
+    married.innerHTML = person.married
+
+    if(person.married === true){
+        married.innerHTML = "igen"
+    }else{
+        married.innerHTML = "nem"
+    }
+    
+
+    const pet = document.createElement('td')
+    tablebody.appendChild(tr)
+    tr.appendChild(pet)
+    pet.innerHTML = person.pet
     
 }
 
