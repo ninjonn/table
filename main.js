@@ -58,73 +58,98 @@ th4.innerHTML="Háziállat"
 
 const tablebody = document.createElement('tbody')
 table.appendChild(tablebody)
-for(const person of array){
-    const tr = document.createElement('tr')
-    const lastname = document.createElement('td')
-    tablebody.appendChild(tr)
-    tr.appendChild(lastname)
-    lastname.innerHTML = person.lastname
-    const firstname = document.createElement('td')
-    tablebody.appendChild(tr)
-    tr.appendChild(firstname)
-    firstname.innerHTML = person.firstname1
-    
-    
-    tablebody.appendChild(tr)
-    
-    tr.addEventListener('click',function(e){
-        console.log('click')
-        
 
-        const ez = tablebody.querySelector('.selected')
-        if(ez!=undefined){
-            ez.classList.remove('selected')
-        }
-        e.currentTarget.classList.add('selected')
-    })
-
-    if(person.firstname2===undefined){
-        firstname.colSpan = 2
-    }
-    else{
-        const firstname2 = document.createElement('td')
-        firstname2.innerHTML = person.firstname2
-        tr.appendChild(firstname2)
-
-    }
-
-
-    const married = document.createElement('td')
-    tablebody.appendChild(tr)
-    tr.appendChild(married)
-    married.innerHTML = person.married
-
-    if(person.married === true){
-        married.innerHTML = "igen"
-    }else{
-        married.innerHTML = "nem"
-    }
-    
-
-    const pet = document.createElement('td')
-    tablebody.appendChild(tr)
-    tr.appendChild(pet)
-    pet.innerHTML = person.pet
-    
-}
 
 const form = document.getElementById('form')
 form.addEventListener('submit',function(e){
     e.preventDefault()
     const lastname = document.getElementById("lastname") 
-    const firstname = document.getElementById("firstname") 
+    const firstname = document.getElementById("firstname1") 
     const firstname2 = document.getElementById("firstname2") 
     const married = document.getElementById("married") 
     const pet = document.getElementById("pet") 
         
     const lastnamevalue = lastname.value
     const firstnamevalue = firstname.value
-    const firstname2value = firstname2.value
+    let firstname2value = firstname2.value
     const marriedvalue = married.checked
     const petvalue = pet.value
+
+    firstname2value = firstname2value === "" ? undefined:firstname2value 
+
+    const newperson =
+    {
+        lastname: lastnamevalue,
+        firstname1: firstnamevalue,
+        firstname2: firstname2value,
+        married: marriedvalue,
+        pet: petvalue 
+    }
+
+
+    array.push(newperson)
+    console.log(array)
+    tablebody.innerHTML = ""
+    rendertable()
+
+    
 })
+
+rendertable()
+
+function rendertable(){
+    for(const person of array){
+        const tr = document.createElement('tr')
+        const lastname = document.createElement('td')
+        tablebody.appendChild(tr)
+        tr.appendChild(lastname)
+        lastname.innerHTML = person.lastname
+        const firstname = document.createElement('td')
+        tablebody.appendChild(tr)
+        tr.appendChild(firstname)
+        firstname.innerHTML = person.firstname1
+        
+        
+        tablebody.appendChild(tr)
+        
+        tr.addEventListener('click',function(e){
+            console.log('click')
+            
+    
+            const ez = tablebody.querySelector('.selected')
+            if(ez!=undefined){
+                ez.classList.remove('selected')
+            }
+            e.currentTarget.classList.add('selected')
+        })
+    
+        if(person.firstname2===undefined){
+            firstname.colSpan = 2
+        }
+        else{
+            const firstname2 = document.createElement('td')
+            firstname2.innerHTML = person.firstname2
+            tr.appendChild(firstname2)
+    
+        }
+    
+    
+        const married = document.createElement('td')
+        tablebody.appendChild(tr)
+        tr.appendChild(married)
+        married.innerHTML = person.married
+    
+        if(person.married === true){ //married.innerhtml = person.married ? "igen":"nem"
+            married.innerHTML = "igen"
+        }else{
+            married.innerHTML = "nem"
+        }
+        
+    
+        const pet = document.createElement('td')
+        tablebody.appendChild(tr)
+        tr.appendChild(pet)
+        pet.innerHTML = person.pet
+        
+    }
+}
