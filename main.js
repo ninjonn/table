@@ -31,6 +31,17 @@ let array = [
 const table = document.createElement('table')
 document.body.appendChild(table)
 
+//----------------------------------------------------------------
+
+const fejlec = [
+    {text: "Vezetéknév", colspan:1},
+    {text: "Keresztnév", colspan:2},
+    {text: "Házas-e", colspan:1},
+    {text: "Háziállat", colspan:1},
+]
+
+//----------------------------------------------------------------
+
 const tablehead = document.createElement('thead')
 table.appendChild(tablehead)
 
@@ -193,3 +204,14 @@ function Createtablecell(element,inner,parent){
     elem.innerHTML = inner
     parent.appendChild(elem)
 }
+
+//Házi
+
+for(const fejlec of fejlecek){
+    const th = document.createElement('th')
+    th.innerHTML = fejlec.text
+    th.colSpan = fejlec.colspan;
+    tableheadrow.appendChild(th)    
+}
+
+//----------------------------------------------------------------
