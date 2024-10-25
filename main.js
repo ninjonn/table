@@ -86,14 +86,14 @@ form.addEventListener('submit',function(e){
         pet: petvalue 
     }
 
-    if (validatefields(lastname,firstname,pet))
+    if (validatefields(lastname,firstname,pet)){
 
-    array.push(newperson)
-    console.log(array)
-    tablebody.innerHTML = ""
-    rendertable()
-
-    
+        array.push(newperson)
+        console.log(array)
+        tablebody.innerHTML = ""
+        rendertable()
+        form.reset()
+    }
 })
 
 rendertable()
