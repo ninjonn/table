@@ -28,8 +28,8 @@ let array = [
     },
 ]
 
-const table = document.createElement('table')
-document.body.appendChild(table)
+
+Createhtmlelement('table','persontable',document.body)
 
 //----------------------------------------------------------------
 
@@ -42,11 +42,11 @@ const fejlec = [
 
 //----------------------------------------------------------------
 
-const tablehead = document.createElement('thead')
-table.appendChild(tablehead)
+Createhtmlelement('thead','personthead','persontable')
 
-const tableheadrow = document.createElement('tr')
-tablehead.appendChild(tableheadrow)
+
+Createhtmlelement('tr','persontr','personthead')
+
 
 const th = document.createElement('th')
 tableheadrow.appendChild(th)
@@ -67,8 +67,8 @@ th2.colSpan = 2
 th3.innerHTML="Házas-e"
 th4.innerHTML="Háziállat"
 
-const tablebody = document.createElement('tbody')
-table.appendChild(tablebody)
+
+Createhtmlelement('tbody','persontbody','persontable')
 
 
 const form = document.getElementById('form')
@@ -199,11 +199,6 @@ function validatefields(lastname,firstname,pet){
     return result
 }
 
-function Createtablecell(element,inner,parent){
-   const elem = document.createElement(element)
-    elem.innerHTML = inner
-    parent.appendChild(elem)
-}
 
 //Házi
 
