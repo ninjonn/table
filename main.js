@@ -11,17 +11,17 @@ const thead = document.createElement('thead');
 const tr = document.createElement('tr');
 
 // Fejléc cellák létrehozása az automatikus függvény használatával
-const th_lastname = automatikustable("th", "Vezetéknév", tr);
+automatikustable("th", "Vezetéknév", tr);
 const th_firstname = automatikustable("th", "Keresztnév", tr);
-const th_hazas = automatikustable("th", "Házas e?", tr);
-const th_pet = automatikustable("th", "Háziállat", tr);
+automatikustable("th", "Házas e?", tr);
+automatikustable("th", "Háziállat", tr);
+
+th_firstname.colSpan = 2; // A keresztnevet 2 oszlop szélességűre állítjuk
 
 // Hierarchia felépítése
 document.body.appendChild(table);
 table.appendChild(thead);
 thead.appendChild(tr);
-
-th_firstname.colSpan = 2; // A keresztnevet 2 oszlop szélességűre állítjuk
 
 // Törzselem (`tbody`) létrehozása és táblához rendelése
 const tbody = document.createElement("tbody");
@@ -50,7 +50,8 @@ form.addEventListener('submit', function(e) {
         pet: pet.value
     };
 
-    if (validateFields(lastname, firstname1, pet)) { // Ha minden mező érvényes
+    // Validálás
+    if (validateFields(lastname, firstname1, pet)) {
         array.push(newpers); // hozzáadjuk az `array` tömbhöz az új adatokat
         render(); // újra kirajzolja a táblázatot
         form.reset(); // az űrlapot alaphelyzetbe állítja

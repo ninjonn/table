@@ -9,41 +9,40 @@ function automatikustable(fajta, taratlom, szulo) {
     const cella = document.createElement(fajta); // létrehoz egy új cellát a megadott típussal
     cella.innerHTML = taratlom; // beállítja a cella tartalmát
     szulo.appendChild(cella); // hozzáadja a cellát a szülő elemhez
-    return cella; // visszatér a cellával
+    return cella;
 }
 
 /**
- * Ellenőrzi a megadott mezőket, és megjeleníti a hibaüzenetet, ha üresen maradtak.
+ * Ellenőrzi, hogy a megadott HTML elem értéke nem üres-e.
+ * Ha a mező üres, beállítja a hibaüzenetet, és `false`-t ad vissza.
+ * @param {HTMLElement} htmlElement - A HTML elem, amelyet ellenőrizni kell
+ * @param {string} errorMessage - A megjelenítendő hibaüzenet, ha az elem értéke üres
+ * @returns {boolean} true, ha az elem értéke nem üres, false ha üres
+ */
+function validateElement(htmlElement, errorMessage) {
+    const errorField = htmlElement.parentElement.querySelector('.error'); // megkeresi a hibaüzenet helyét
+    if (htmlElement.value === '') {
+        errorField.innerHTML = errorMessage; // beállítja a hibaüzenetet
+        return false;
+    } else {
+        errorField.innerHTML = ''; // törli a hibaüzenetet, ha van érték
+        return true;
+    }
+}
+
+/**
+ * Ellenőrzi az összes szükséges mezőt a `validateElement` függvénnyel, és hibaüzenetet jelenít meg.
  * @param {HTMLElement} lastHTML 
  * @param {HTMLElement} firstHTML 
  * @param {HTMLElement} petHTML 
  * @returns {boolean} true, ha minden mező érvényes, false ha valamelyik üres
  */
 function validateFields(lastHTML, firstHTML, petHTML) {
-    let result = true;  // Kezdetben feltételezzük, hogy minden mező érvényes
-
-    if (lastHTML.value === '') {
-        const parent_element = lastHTML.parentElement;
-        const error = parent_element.querySelector('.error');
-        error.innerHTML = 'kotelezo';
-        result = false;
-    }
-
-    if (firstHTML.value === '') {
-        const parent_element = firstHTML.parentElement;
-        const error = parent_element.querySelector('.error');
-        error.innerHTML = 'kotelezo';
-        result = false;
-    }
-
-    if (petHTML.value === '') {
-        const parent_element = petHTML.parentElement;
-        const error = parent_element.querySelector('.error');
-        error.innerHTML = 'kotelezo';
-        result = false;
-    }
-
-    return result; // Visszatér az eredménnyel (true vagy false)
+    return (
+        validateElement(lastHTML, 'Kötelező vezetéknév') &
+        validateElement(firstHTML, 'Kötelező keresztnév') &
+        validateElement(petHTML, 'Kötelező háziállat')
+    );
 }
 
 /**
@@ -52,44 +51,28 @@ function validateFields(lastHTML, firstHTML, petHTML) {
 function render() {
     tbody.innerHTML = ''; // törli a `tbody` korábbi tartalmát
 
-    for (let pers of array) {
+    array.forEach((pers) => {
         const tr_body = document.createElement('tr'); // létrehozza a sort
 
-        tr_body.addEventListener('click', function(e) { // kattintás eseménykezelő
-            const select_tr = tbody.querySelector('.selected');
-            if (select_tr) select_tr.classList.remove('selected');
-            e.currentTarget.classList.add('selected'); // kijelöli az aktuális sort
+        // Sort kijelölő eseménykezelő
+        tr_body.addEventListener('click', function() { 
+            tbody.querySelector('.selected')?.classList.remove('selected');
+            tr_body.classList.add('selected');
         });
 
         tbody.appendChild(tr_body); // hozzáadja a sort a `tbody` elemhez
 
-        // Vezetéknév cella hozzáadása
-        const td_lastname = document.createElement('td');
-        td_lastname.innerHTML = pers.lastname;
-        tr_body.appendChild(td_lastname);
+        // Cella hozzáadása vezetéknév, keresztnév1, keresztnév2, házas, és háziállat mezőknek
+        automatikustable('td', pers.lastname, tr_body);
+        const td_firstname = automatikustable('td', pers.firstname1, tr_body);
 
-        // Első keresztnév cella hozzáadása
-        const td_firstname = document.createElement('td');
-        td_firstname.innerHTML = pers.firstname1;
-        tr_body.appendChild(td_firstname);
-
-        // Második keresztnév cella, ha létezik
-        if (!pers.firstname2) {
-            td_firstname.colSpan = 2; // két oszlopnyi széles legyen, ha nincs második keresztnév
+        if (pers.firstname2) {
+            automatikustable('td', pers.firstname2, tr_body);
         } else {
-            const td_firstname2 = document.createElement('td');
-            td_firstname2.innerHTML = pers.firstname2;
-            tr_body.appendChild(td_firstname2);
+            td_firstname.colSpan = 2; // két oszlopnyi széles legyen, ha nincs második keresztnév
         }
 
-        // Házassági státusz cella hozzáadása
-        const td_married = document.createElement('td');
-        td_married.innerHTML = pers.married ? "igen" : "nem";
-        tr_body.appendChild(td_married);
-
-        // Háziállat cella hozzáadása
-        const td_pet = document.createElement('td');
-        td_pet.innerHTML = pers.pet;
-        tr_body.appendChild(td_pet);
-    }
+        automatikustable('td', pers.married ? "igen" : "nem", tr_body);
+        automatikustable('td', pers.pet, tr_body);
+    });
 }
